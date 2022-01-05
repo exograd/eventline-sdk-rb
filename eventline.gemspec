@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.email = ["support@exograd.com"]
 
   spec.summary = "Eventline Ruby SDK."
-  spec.description =  "Eventline is a scheduling platform where you can define and run " +
-                      "custom tasks in a safe environment."
+  spec.description = "Eventline is a scheduling platform where you can define and run " +
+                     "custom tasks in a safe environment."
   spec.homepage = "https://docs.eventline.net"
   spec.required_ruby_version = ">= 2.6.0"
 

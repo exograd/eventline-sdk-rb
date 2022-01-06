@@ -39,6 +39,13 @@ module Eventline
     end
 
     def call(request, body = nil)
+      request["Accept"] = "application/json"
+      request["Content-Type"] = "application/json"
+      request["User-Agent"] = "Eventline/1.0 (platform; ruby) eventline-sdk"
+      request["Content-Length"] = body.to_s.bytesize
+      request["Authorization"] = "Bearer #{@token}"
+      request["X-Eventline-Project-Id"] = @project_id.to_s
+
       @mut.synchronize do
         @conn.request(request, body)
       end

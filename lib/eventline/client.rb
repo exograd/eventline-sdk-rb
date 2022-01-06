@@ -15,7 +15,7 @@ module Eventline
 
       @token = ENV.fetch("EVCLI_API_KEY", token.to_s)
 
-      @project_id = project_id
+      @project_id = project_id.to_s
 
       @mut = Mutex.new
       @conn = Net::HTTP.new(host, port)
@@ -44,7 +44,7 @@ module Eventline
       request["User-Agent"] = "Eventline/1.0 (platform; ruby) eventline-sdk"
       request["Content-Length"] = body.to_s.bytesize
       request["Authorization"] = "Bearer #{@token}"
-      request["X-Eventline-Project-Id"] = @project_id.to_s
+      request["X-Eventline-Project-Id"] = @project_id
 
       @mut.synchronize do
         @conn.request(request, body)

@@ -1,15 +1,13 @@
 require("net/https")
 require("openssl")
 require("set")
-require("thread")
-
 module Eventline
   class Client
     PUBLIC_KEY_PIN_SET = Set[
       "gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="
     ].freeze
 
-    def initialize(host: "api.eventline.net", port: 443, token: "", project_id:)
+    def initialize(project_id:, host: "api.eventline.net", port: 443, token: "")
       store = OpenSSL::X509::Store.new
       store.add_file(File.expand_path("cacert.pem", __dir__ + "/../data"))
 

@@ -1,7 +1,7 @@
 require("net/https")
 require("openssl")
 require("set")
-require("mutex")
+require("thread")
 
 module Eventline
   class Client

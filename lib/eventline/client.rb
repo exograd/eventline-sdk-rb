@@ -9,13 +9,16 @@ module Eventline
       "gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="
     ].freeze
 
-    def initialize
+    def initialize(host: "api.eventline.net", port: 443, token: "", project_id:)
       store = OpenSSL::X509::Store.new
       store.add_file(File.expand_path("cacert.pem", __dir__ + "/../data"))
 
-      @mut = Mutex.new
+      @token = ENV.fetch("EVCLI_API_KEY", token.to_s)
 
-      @conn = Net::HTTP.new("api.eventline.net", 443)
+      @project_id = project_id
+
+      @mut = Mutex.new
+      @conn = Net::HTTP.new(host, port)
 
       @conn.keep_alive_timeout = 30
 

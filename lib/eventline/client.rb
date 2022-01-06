@@ -1,9 +1,10 @@
 require("net/https")
 require("openssl")
+require("set")
 
 module Eventline
   class Client
-    PUBLIC_KEY_PIN_SET = [
+    PUBLIC_KEY_PIN_SET = Set[
       "gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="
     ].freeze
 

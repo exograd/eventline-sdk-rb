@@ -1,8 +1,21 @@
 require("net/https")
 require("openssl")
 require("set")
+require("json")
+
 module Eventline
   class Client
+    class RequestError < StandardError
+      attr_reader(:status, :code, :data)
+
+      def initialize(status, code, data, message)
+        super(message)
+        @status = status
+        @code = code
+        @data = data
+      end
+    end
+
     PUBLIC_KEY_PIN_SET = Set[
       "gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="
     ].freeze
@@ -45,9 +58,50 @@ module Eventline
       request["Authorization"] = "Bearer #{@token}"
       request["X-Eventline-Project-Id"] = @project_id
 
-      @mut.synchronize do
+      response = @mut.synchronize do
         @conn.request(request, body)
       end
+
+      data = if response.content_type == "application/json"
+               begin
+                 JSON.parse(response.body)
+               rescue
+                 raise(
+                   RequestError.new(
+                     response.code.to_i,
+                     "invalid_json",
+                     response.body,
+                     "invalid json body"
+                   )
+                 )
+               end
+             else
+               response.body
+             end
+
+      if response.code.to_i < 200 || response.code.to_i >= 300
+        if response.content_type == "application/json"
+          raise(
+            RequestError.new(
+              response.code.to_i,
+              data.fetch("code", "unknown_error"),
+              data.fetch("data", {}),
+              data.fetch("error")
+            )
+          )
+        else
+          raise(
+            RequestError.new(
+              response.code.to_i,
+              "invalid_json",
+              response.body,
+              "invalid json body"
+            )
+          )
+        end
+      end
+
+      data
     end
   end
 end

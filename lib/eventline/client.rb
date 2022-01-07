@@ -5,9 +5,17 @@ require("json")
 
 module Eventline
   class Client
+    # @attr_reader status [Integer] The HTTP response status code.
+    # @attr_reader code [String] The API error code.
+    # @attr_reader data [String, Hash] The HTTP response body.
+    # @attr_reader message [String] The human readable message.
     class RequestError < StandardError
       attr_reader(:status, :code, :data)
 
+      # @param status [Integer]
+      # @param code [String]
+      # @param data [String,Hash]
+      # @param message [String]
       def initialize(status, code, data, message)
         super(message)
         @status = status
@@ -20,6 +28,10 @@ module Eventline
       "gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="
     ].freeze
 
+    # @param project_id [String]
+    # @param host [String]
+    # @param port [Integer]
+    # @param token [String]
     def initialize(project_id:, host: "api.eventline.net", port: 443, token: "")
       store = OpenSSL::X509::Store.new
       store.add_file(File.expand_path("cacert.pem", __dir__ + "/../data"))
@@ -49,6 +61,16 @@ module Eventline
       end
     end
 
+    # Execute an HTTP request on the connection.
+    #
+    # @param request [HTTPRequest] the HTTP request to execute
+    # @param body [String] the HTTP request body
+    #
+    # @raise [RequestError] if the server not responds with 2xx status.
+    # @raise [SocketError]
+    # @raise [Timeout::Error]
+    #
+    # @return [String, Hash]
     def call(request, body = nil)
       request.content_type = "application/json"
       request.content_length = body.to_s.bytesize

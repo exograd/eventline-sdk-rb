@@ -36,7 +36,7 @@ module Eventline
       store = OpenSSL::X509::Store.new
       store.add_file(File.expand_path("cacert.pem", __dir__ + "/../data"))
 
-      @token = ENV.fetch("EVCLI_API_KEY", token.to_s)
+      @token = ENV.fetch("EVENTLINE_API_KEY", token.to_s)
 
       @project_id = project_id.to_s
 

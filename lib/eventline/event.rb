@@ -12,13 +12,35 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+require("eventline/client")
+
 module Eventline
   class Event
     attr_accessor(:id, :org_id, :trigger_id, :command_id, :creation_time, :event, :name,
                   :data, :original_event_id)
 
-    def initialize
+    # Fetch a list of events.
+    #
+    # @param [Eventline::Client] client
+    # @param [Eventline::Event::ListEventRequest] request
+    #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return Eventline::Event::ListEventResponse
+    def self.get_all(client, request = nil)
+      request = Net::HTTP::Get.new("/v0/events")
+      response = client.call(request)
+
+      elements = response.fetch("elements", []).map do |element|
+        event = new
+        event.from_h(element)
+        event
+      end
+
+      Client::ListResponse.new(elements, response["next"], response["previous"])
     end
+
+    def initialize; end
 
     # Load event from a hash object.
     #

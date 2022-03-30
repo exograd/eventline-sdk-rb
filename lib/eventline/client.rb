@@ -19,6 +19,29 @@ require("json")
 
 module Eventline
   class Client
+    class ListResponse
+      attr_reader(:elements, :next, :previous)
+
+      def initialize(elements, _next, _previous)
+        @elements = elements
+
+        @next = Pagination.new(_next.to_h)
+        @previous = Pagination.new(_previous.to_h)
+      end
+    end
+
+    class Pagination
+      attr_reader(:after, :before, :sort, :size, :order)
+
+      def initialize(opts)
+        @after = opts["after"]
+        @before = opts["before"]
+        @sort = opts["sort"]
+        @size = opts["size"]
+        @order = opts["order"]
+      end
+    end
+
     # @attr_reader status [Integer] The HTTP response status code.
     # @attr_reader code [String] The API error code.
     # @attr_reader data [String, Hash] The HTTP response body.

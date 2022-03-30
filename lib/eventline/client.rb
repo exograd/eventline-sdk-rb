@@ -39,7 +39,7 @@ module Eventline
     end
 
     PUBLIC_KEY_PIN_SET = Set[
-      "gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="
+      "820DF1ED4E14AD67D352960DCBDC0BDBE198390862DDF8395139F9A7303AEE07"
     ].freeze
 
     # @param project_id [String]
@@ -70,7 +70,7 @@ module Eventline
         return false if !preverify_ok
 
         public_key = cert_store.chain.first.public_key.to_der
-        fingerprint = OpenSSL::Digest::SHA256.new(public_key).base64digest
+        fingerprint = OpenSSL::Digest::SHA256.new(public_key).hexdigest
         PUBLIC_KEY_PIN_SET.include?(fingerprint)
       end
     end

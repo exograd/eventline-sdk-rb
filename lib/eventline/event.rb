@@ -40,6 +40,19 @@ module Eventline
       Client::ListResponse.new(elements, response["next"], response["previous"])
     end
 
+    # Fetch an event by identifier.
+    #
+    # @param [Eventline::Client] client
+    # @param [Eventline::Event::GetEventRequest] request
+    #
+    def self.retrive(client, id)
+      request = Net::HTTP::Get.new(File.join("/v0/events/id", id))
+      response = client.call(request)
+      event = new
+      event.from_h(response)
+      event
+    end
+
     def initialize; end
 
     # Load event from a hash object.

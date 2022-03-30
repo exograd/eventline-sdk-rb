@@ -45,6 +45,9 @@ module Eventline
     # @param [Eventline::Client] client
     # @param [Eventline::Event::GetEventRequest] request
     #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return Eventline::Event
     def self.retrive(client, id)
       request = Net::HTTP::Get.new(File.join("/v0/events/id", id))
       response = client.call(request)

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "eventline/version"
+require "eventline/version"
+require "eventline/client"
+require "eventline/context"
+require "eventline/event"
 
 module Eventline
   class Error < StandardError; end

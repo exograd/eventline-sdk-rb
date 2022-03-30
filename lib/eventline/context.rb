@@ -70,12 +70,13 @@ module Eventline
     # Load context from a hash object.
     #
     # @raise [KeyError]
+    # @raise [ArgumentError]
     #
     # @return nil
     def from_h(data)
       @event = data.fetch("event")
       @task_parameters = data.fetch("task_parameters")
-      @instance_id = data.fetch("instance_id").to_i
+      @instance_id = Integer(data.fetch("instance_id"))
       @identities = data.fetch("identities")
       nil
     end

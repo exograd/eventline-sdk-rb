@@ -27,7 +27,7 @@ module Eventline
     # @raise [Eventline::Client::RequestError]
     #
     # @return Eventline::Client::ListResponse
-    def self.get_all(client, request = nil)
+    def self.list(client, request = nil)
       request = Net::HTTP::Get.new("/v0/events")
       response = client.call(request)
 

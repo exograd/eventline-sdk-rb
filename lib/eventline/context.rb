@@ -50,8 +50,9 @@ module Eventline
 
     # Load and return a context object.
     #
-    # @raise [Errno::ENOENT] when the context file does not exist.
-    # @raise [Errno::EACCES] when permission to the context file is not ok.
+    # @raise [Errno::ENOENT]
+    # @raise [Errno::EACCES]
+    # @raise [JSON::ParserError]
     #
     # @return Eventline::Context
     def self.load

@@ -16,6 +16,7 @@ require("json")
 
 module Eventline
   class Context
+    attr_reader(:event, :task_parameters, :instance_id, :identities)
 
     # Returns the current project id when the function is called in an Eventline instance.
     #
@@ -45,6 +46,37 @@ module Eventline
     # @return String
     def self.current_task_id
       ENV["EVENTLINE_TASK_ID"].to_s
+    end
+
+    # Load and return a context object.
+    #
+    # @raise [Errno::ENOENT] when the context file does not exist.
+    # @raise [Errno::EACCES] when permission to the context file is not ok.
+    #
+    # @return Eventline::Context
+    def self.load
+      filename = ENV.fetch("EVENTLINE_CONTEXT_PATH", "/eventline/task/context")
+      file = IO.read(filename)
+      data = JSON.parse(file)
+      context = new
+      context.from_h(data)
+      context
+    end
+
+    def initialize
+    end
+
+    # Load context from a hash object.
+    #
+    # @raise [KeyError]
+    #
+    # @return nil
+    def from_h(data)
+      @event = data.fetch("event")
+      @task_parameters = data.fetch("task_parameters")
+      @instance_id = data.fetch("instance_id").to_i
+      @identities = data.fetch("identities")
+      nil
     end
   end
 end

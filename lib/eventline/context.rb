@@ -13,6 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require("json")
+require("eventline/event")
 
 module Eventline
   class Context
@@ -72,13 +73,13 @@ module Eventline
     # @raise [KeyError]
     # @raise [ArgumentError]
     #
-    # @return nil
+    # @return Eventline::Context
     def from_h(data)
-      @event = data.fetch("event")
+      @event = Eventline::Event.new.from_h(data.fetch("event"))
       @task_parameters = data.fetch("task_parameters")
       @instance_id = Integer(data.fetch("instance_id"))
       @identities = data.fetch("identities")
-      nil
+      self
     end
   end
 end

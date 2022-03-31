@@ -22,11 +22,11 @@ module Eventline
     class ListResponse
       attr_reader(:elements, :next, :previous)
 
-      def initialize(elements, _next, _previous)
+      def initialize(elements, next0, previous0)
         @elements = elements
 
-        @next = Pagination.new(_next.to_h)
-        @previous = Pagination.new(_previous.to_h)
+        @next = Pagination.new(next0.to_h)
+        @previous = Pagination.new(previous0.to_h)
       end
     end
 

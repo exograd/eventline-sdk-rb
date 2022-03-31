@@ -26,7 +26,6 @@ module Eventline
       ENV["EVENTLINE"].to_s.eql?("true")
     end
 
-
     # Returns the current project id when the function is called in an Eventline instance.
     #
     # @return String

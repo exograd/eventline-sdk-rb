@@ -17,7 +17,7 @@ require("eventline/client")
 module Eventline
   class Event
     attr_accessor(:id, :org_id, :trigger_id, :command_id, :creation_time, :event, :name,
-                  :data, :original_event_id)
+      :data, :original_event_id)
 
     # Fetch a list of events.
     #
@@ -93,7 +93,8 @@ module Eventline
       event
     end
 
-    def initialize; end
+    def initialize
+    end
 
     # Load event from a hash object.
     #

@@ -122,21 +122,21 @@ module Eventline
       end
 
       data = if response.content_type == "application/json"
-               begin
-                 JSON.parse(response.body)
-               rescue
-                 raise(
-                   RequestError.new(
-                     response.code.to_i,
-                     "invalid_json",
-                     response.body,
-                     "invalid json body"
-                   )
-                 )
-               end
-             else
-               response.body
-             end
+        begin
+          JSON.parse(response.body)
+        rescue
+          raise(
+            RequestError.new(
+              response.code.to_i,
+              "invalid_json",
+              response.body,
+              "invalid json body"
+            )
+          )
+        end
+      else
+        response.body
+      end
 
       if response.code.to_i < 200 || response.code.to_i >= 300
         if response.content_type == "application/json"

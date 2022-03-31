@@ -43,7 +43,7 @@ module Eventline
     # Fetch an event by identifier.
     #
     # @param [Eventline::Client] client
-    # @param [Eventline::Event::GetEventRequest] request
+    # @param [String] id
     #
     # @raise [Eventline::Client::RequestError]
     #

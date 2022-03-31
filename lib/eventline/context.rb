@@ -19,6 +19,14 @@ module Eventline
   class Context
     attr_reader(:event, :task_parameters, :instance_id, :identities)
 
+    # Returns `true` when the function is called in an Eventline instance.
+    #
+    # @return Boolean
+    def self.executed_in_eventline?
+      ENV["EVENTLINE"].to_s.eql?("true")
+    end
+
+
     # Returns the current project id when the function is called in an Eventline instance.
     #
     # @return String
@@ -80,6 +88,20 @@ module Eventline
       @instance_id = Integer(data.fetch("instance_id"))
       @identities = data.fetch("identities")
       self
+    end
+
+    # Returns `true` when the pipeline is launch by an event.
+    #
+    # @return Boolean
+    def launch_by_event?
+      @event.trigger_id.nil?
+    end
+
+    # Returns `true` when the pipeline is launch by a command.
+    #
+    # @return Boolean
+    def launch_by_command?
+      @event.command_id.nil?
     end
   end
 end

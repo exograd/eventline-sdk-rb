@@ -77,6 +77,22 @@ module Eventline
       end
     end
 
+    # Replay an existing event.
+    #
+    # @param [Eventline::Client] client
+    # @param [String] id
+    #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return Eventline::Event
+    def self.replay(client, id)
+      request = Net::HTTP::Post.new(File.join("/v0/events", id, "replay"))
+      response = client.call(request)
+      event = new
+      event.from_h(response)
+      event
+    end
+
     def initialize; end
 
     # Load event from a hash object.

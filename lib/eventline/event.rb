@@ -56,6 +56,27 @@ module Eventline
       event
     end
 
+    # Create a new custom event.
+    #
+    #
+    # @param [Eventline::Client] client
+    # @param [Hash] data
+    #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return [Eventline::Event]
+    def self.create(client, data)
+      request = Net::HTTP::Post.new("/v0/events")
+      request.body = JSON.dump(data)
+      response = client.call(request)
+
+      response.map do |element|
+        event = new
+        event.from_h(element)
+        event
+      end
+    end
+
     def initialize; end
 
     # Load event from a hash object.

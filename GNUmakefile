@@ -13,10 +13,13 @@
 # PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
-all: build docs
+all: fmt build docs
 
 build:
 	bundle install
+
+fmt:
+	bundle exec standardrb --fix
 
 docs:
 	bundle exec yard
@@ -26,4 +29,4 @@ clean:
 	$(RM) -r .yardoc/
 	$(RM) -r vendor/
 
-.PHONY: all build docs clean
+.PHONY: all fmt build docs clean

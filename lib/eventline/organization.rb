@@ -45,10 +45,10 @@ module Eventline
     def from_h(data)
       @id = data.fetch("id")
       @name = data.fetch("name")
-      @address = data.fetch("address", nil)
-      @postal_code = data.fetch("postal_code", nil)
-      @city = data.fetch("city", nil)
-      @country = data.fetch("country", nil)
+      @address = data["address"]
+      @postal_code = data["postal_code"]
+      @city = data["city"]
+      @country = data["country"]
       @contact_email_address = data.fetch("contact_email_address")
       @non_essential_mail_opt_in = data.fetch("non_essential_mail_opt_in")
       @vat_id_number = data["vat_id_number"]

@@ -108,9 +108,9 @@ module Eventline
     # @raise [Timeout::Error]
     #
     # @return [String, Hash]
-    def call(request, body = nil)
+    def call(request)
       request.content_type = "application/json"
-      request.content_length = body.to_s.bytesize
+      request.content_length = request.body.to_s.bytesize
 
       request["Accept"] = "application/json"
       request["User-Agent"] = "Eventline/1.0 (platform; ruby) eventline-sdk"
@@ -118,7 +118,7 @@ module Eventline
       request["X-Eventline-Project-Id"] = @project_id
 
       response = @mut.synchronize do
-        @conn.request(request, body)
+        @conn.request(request)
       end
 
       data = if response.content_type == "application/json"

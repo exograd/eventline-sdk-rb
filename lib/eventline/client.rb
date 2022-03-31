@@ -101,7 +101,6 @@ module Eventline
     # Execute an HTTP request on the connection.
     #
     # @param request [HTTPRequest] the HTTP request to execute
-    # @param body [String] the HTTP request body
     #
     # @raise [RequestError] if the server not responds with 2xx status.
     # @raise [SocketError]

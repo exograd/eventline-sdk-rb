@@ -22,7 +22,7 @@ module Eventline
     # Fetch a list of events.
     #
     # @param [Eventline::Client] client
-    # @param [Eventline::Event::ListEventRequest] request
+    # @param [Hash] data
     #
     # @raise [Eventline::Client::RequestError]
     #

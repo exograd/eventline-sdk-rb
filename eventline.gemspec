@@ -11,11 +11,11 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/exograd/rb-eventline-sdk/issues",
-    "changelog_uri" => "https://github.com/exograd/rb-eventline-sdk/blob/master/CHANGELOG.md",
-    "github_repo" => "ssh://github.com/exograd/rb-eventline-sdk",
+    "bug_tracker_uri" => "https://github.com/exograd/rb-eventline/issues",
+    "changelog_uri" => "https://github.com/exograd/rb-eventline/blob/master/CHANGELOG.md",
+    "github_repo" => "ssh://github.com/exograd/rb-eventline",
     "homepage_uri" => "https://docs.eventline.net",
-    "source_code_uri" => "https://github.com/exograd/rb-eventline-sdk"
+    "source_code_uri" => "https://github.com/exograd/rb-eventline"
   }
 
   spec.files = Dir["lib/**/*.rb"]

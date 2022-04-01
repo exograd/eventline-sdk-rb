@@ -19,6 +19,19 @@ module Eventline
     attr_accessor(:id, :org_id, :creation_time, :disabled, :email_address, :name, :role,
       :last_login_time, :last_project_id, :settings)
 
+    def self.list(client, data = nil)
+      request = Net::HTTP::Get.new("/v0/accounts")
+      response = client.call(request)
+
+      elements = response.fetch("elements", []).map do |element|
+        account = new
+        account.from_h(element)
+        account
+      end
+
+      Client::ListResponse.new(elements, response["next"], response["previous"])
+    end
+
     # Fetch an account by identifier.
     #
     # @param [Eventline::Client] client

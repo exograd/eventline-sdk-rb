@@ -51,7 +51,6 @@ module Eventline
     # Fetch the current account.
     #
     # @param [Eventline::Client] client
-    # @param [String] id
     #
     # @raise [Eventline::Client::RequestError]
     #

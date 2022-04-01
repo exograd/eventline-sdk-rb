@@ -8,5 +8,4 @@ require "eventline/organization"
 
 module Eventline
   class Error < StandardError; end
-  # Your code goes here...
 end

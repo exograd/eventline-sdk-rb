@@ -17,9 +17,26 @@ require("eventline/client")
 module Eventline
   class Account
     attr_accessor(:id, :org_id, :creation_time, :disabled, :email_address, :name, :role,
-                  :last_login_time, :last_project_id, :settings)
+      :last_login_time, :last_project_id, :settings)
 
-    def initialize; end
+    # Fetch an account by identifier.
+    #
+    # @param [Eventline::Client] client
+    # @param [String] id
+    #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return Eventline::Account
+    def self.retrieve(client, id)
+      request = Net::HTTP::Get.new(File.join("/v0/accounts/id", id))
+      response = client.call(request)
+      account = new
+      account.from_h(response)
+      account
+    end
+
+    def initialize
+    end
 
     # Load account from a hash object.
     #

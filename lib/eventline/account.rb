@@ -35,6 +35,22 @@ module Eventline
       account
     end
 
+    # Fetch the current account.
+    #
+    # @param [Eventline::Client] client
+    # @param [String] id
+    #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return Eventline::Account
+    def self.current_account(client)
+      request = Net::HTTP::Get.new("/v0/account")
+      response = client.call(request)
+      account = new
+      account.from_h(response)
+      account
+    end
+
     def initialize
     end
 

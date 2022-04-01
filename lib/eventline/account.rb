@@ -19,6 +19,14 @@ module Eventline
     attr_accessor(:id, :org_id, :creation_time, :disabled, :email_address, :name, :role,
       :last_login_time, :last_project_id, :settings)
 
+    # Fetch a list of accounts.
+    #
+    # @param [Eventline::Client] client
+    # @param [Hash] data
+    #
+    # @raise [Eventline::Client::RequestError]
+    #
+    # @return Eventline::Client::ListResponse
     def self.list(client, data = nil)
       request = Net::HTTP::Get.new("/v0/accounts")
       response = client.call(request)

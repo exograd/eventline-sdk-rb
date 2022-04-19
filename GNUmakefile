@@ -16,7 +16,7 @@
 all: fmt build docs
 
 build:
-	bundle install
+	gem build
 
 fmt:
 	bundle exec standardrb --fix

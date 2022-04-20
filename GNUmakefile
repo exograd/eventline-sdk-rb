@@ -24,6 +24,9 @@ fmt:
 docs:
 	bundle exec yard
 
+publish:
+	gem push
+
 clean:
 	$(RM) -r doc/
 	$(RM) -r .yardoc/

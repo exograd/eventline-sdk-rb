@@ -25,7 +25,7 @@ docs:
 	bundle exec yard
 
 publish:
-	gem push eventline
+	gem push *.gem
 
 clean:
 	$(RM) -r doc/

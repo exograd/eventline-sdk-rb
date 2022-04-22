@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "eventline/version"
 require "eventline/client"
 require "eventline/context"
 require "eventline/event"

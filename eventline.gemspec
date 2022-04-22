@@ -1,6 +1,9 @@
+version = `git describe --tags --abbrev=0`.gsub!("v", "")
+
+
 Gem::Specification.new do |spec|
   spec.name = "eventline"
-  spec.version = "0.1.0"
+  spec.version = version
   spec.authors = ["Exograd SAS"]
   spec.email = ["support@exograd.com"]
 
